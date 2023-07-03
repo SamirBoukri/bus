@@ -34,6 +34,12 @@ app.post("/authors", (req, res) => {
   }
 });
 
+app.delete("/authors/:id", (req, res) => {
+  const authorId = parseInt(req.params.id);
+  authorService.deleteAuthor(authorId)
+  res.send(JSON.stringify(bookService.getAllBooks()))
+})
+
 // Routes pour le microservice Book
 app.get("/books", (req, res) => {
   const allBooks = bookService.getAllBooks();
@@ -87,6 +93,12 @@ app.post("/categories", (req, res) => {
     res.status(400).send("Le nom de la catégorie est requis");
   }
 });
+
+app.delete("/categories/:id", (req, res) => {
+  const categoryId = parseInt(req.params.id);
+  categoryService.deleteCategory(categoryId)
+  res.send(JSON.stringify(bookService.getAllBooks()))
+})
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
